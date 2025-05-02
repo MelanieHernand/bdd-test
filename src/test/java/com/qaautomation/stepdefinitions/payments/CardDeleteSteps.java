@@ -1,4 +1,4 @@
-package com.qaautomation.stepdefinitions;
+package com.qaautomation.stepdefinitions.payments;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
 import com.qaautomation.context.TestContext;
@@ -97,7 +97,7 @@ public class CardDeleteSteps {
     }
 
     @And("En la base de datos el status de la tarjeta debe ser {string}")
-    public void validarStatusEnBaseDeDatos(String expectedStatus) {
+    public void validateStatusInDatabase(String expectedStatus) {
     String cardId = cardService.getCardId();
     String query = "SELECT status FROM card WHERE id = '" + cardId + "'";
 

@@ -1,4 +1,4 @@
-package com.qaautomation.stepdefinitions;
+package com.qaautomation.stepdefinitions.payments;
 
 import static org.junit.Assert.assertEquals;
 import com.qaautomation.services.CardService;

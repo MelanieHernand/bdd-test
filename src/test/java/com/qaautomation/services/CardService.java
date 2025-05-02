@@ -25,7 +25,7 @@ public class CardService {
         requestParams.put("cvc", cvc);
         requestParams.put("exp_year", expYear);
         requestParams.put("exp_month", expMonth);
-        requestParams.put("card_holder", "Mel He");
+        requestParams.put("card_holder", "Juan Perez");
         requestParams.put("ip", "192.168.1.1");
         requestParams.put("deviceId", "TEST-DEVICE-123");
         requestParams.put("is_pay_bm", false);
@@ -136,4 +136,27 @@ public class CardService {
     public String getLastCardNumber() {
         return lastCardNumber;
     }
+
+    public String getRandomActiveCardId() {
+        if (cardList == null || cardList.isEmpty()) return null;
+    
+        List<Map<String, Object>> activeCards = cardList.stream()
+                .filter(card -> "ACTIVE".equalsIgnoreCase((String) card.get("status")))
+                .toList();
+    
+        if (activeCards.isEmpty()) return null;
+    
+        int randomIndex = (int) (Math.random() * activeCards.size());
+        Map<String, Object> selectedCard = activeCards.get(randomIndex);
+        return selectedCard.get("id").toString();
+    }
+
+    public String prepareCardForPayment(String sk2Token) {
+        listCards(sk2Token);
+        String selectedCard = getRandomActiveCardId();
+        
+        return selectedCard;
+    }
+    
+    
 }

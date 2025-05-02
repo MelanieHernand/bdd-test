@@ -5,7 +5,7 @@ Feature: Login de un usuario multicountry
     When Invoco al endpoint: "<ENDPOINT>" con los siguientes parametros "<EMAIL>" "<CONTRASENA>" "<COUNTRY>"
     Then La respuesta debe tener un estado del usuario "<STATUS>"
     And el status code debe ser <STATUS_CODE>
-
+    
     @test
   Examples:
     | EMAIL                | CONTRASENA | COUNTRY | ENDPOINT   | STATUS_CODE | STATUS |

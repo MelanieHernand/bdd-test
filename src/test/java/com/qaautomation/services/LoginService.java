@@ -29,14 +29,18 @@ public class LoginService {
                 .post("https://dev.trii.tech/" + endpoint)
                 .prettyPeek();
 
+        this.response = resp;
+
         if (resp.getStatusCode() == 200) {
             String tokenResp = resp.jsonPath().getString("token");
             if (tokenResp != null && !tokenResp.isEmpty()) {
                 this.token = tokenResp;
+            } else {
+                System.err.println("Login exitoso pero sin token recibido.");
             }
+        } else {
+            System.err.println("Login fallido. Código: " + resp.getStatusCode());
         }
-
-        this.response = resp;
     }
 
     public String getToken() {
@@ -47,7 +51,6 @@ public class LoginService {
         return response;
     }
 
-
     public void validateUserInDatabase(String email, String databaseName) {
         String query = "SELECT * FROM user WHERE email = '" + email + "'";
         MySQLUtils.QueryResult queryResult = MySQLUtils.executeQuery(query, databaseName);
@@ -56,7 +59,7 @@ public class LoginService {
             if (queryResult != null && queryResult.getResultSet() != null) {
                 ResultSet resultSet = queryResult.getResultSet();
                 assertTrue("El usuario con email " + email + " no existe en la base de datos", resultSet.next());
-                System.out.println("Usuario encontrado: " + resultSet.getString("email"));
+                System.out.println("Usuario encontrado en base: " + resultSet.getString("email"));
             } else {
                 fail("No se pudo ejecutar la consulta o no se devolvió ningún resultado.");
             }
@@ -66,5 +69,4 @@ public class LoginService {
             MySQLUtils.closeResources(queryResult);
         }
     }
-
 }
