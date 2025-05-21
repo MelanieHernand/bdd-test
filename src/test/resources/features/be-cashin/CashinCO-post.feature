@@ -5,12 +5,12 @@ Scenario Outline: Colocar una orden de cashin con un banco aleatorio y validar e
   When Obtengo un banco aleatorio de la lista de bancos del país "<COUNTRY>"
   And Realizo una orden de cashin con el banco seleccionado y monto "<AMOUNT>"
   Then La respuesta debe contener un status "<STATUS_CODE>" y un mensaje de respuesta "<STATUS>"
-  And La orden debe estar registrada en la base de datos "<DATEBASE>" con el monto "<AMOUNT>" y canal "<CHANEL>"
+  And La orden debe estar registrada en la base de datos "<DATABASE>" con el monto "<AMOUNT>" y canal "<CHANNEL>"
 
 @test
 Examples:
-  | EMAIL                | PASSWORD  | COUNTRY | AMOUNT  | STATUS_CODE | STATUS  | DATEBASE      | CHANEL          |
-  | userfull@yopmail.com | 123qweasD | CO      | 239000  | 200         | CREATED | be-cashin-co  | accival connect |
+  | EMAIL                | PASSWORD  | COUNTRY | AMOUNT  | STATUS_CODE | STATUS  | DATABASE      | CHANNEL          |
+  | userfull@yopmail.com | 123qweasD | CO      | 239000  | 200         | CREATED | be-cashin-co  | accival connect  |
 
 Scenario Outline: Realizar cashin con un banco inválidos
   Given Me logueo con exito con el endpoint "auth/login" con los parametros "<EMAIL>" "<PASSWORD>" y "<COUNTRY>"

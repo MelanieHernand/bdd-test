@@ -47,7 +47,7 @@ public class CashinCOPostSteps {
     public void validarEnBaseDeDatos(String dbName, String monto, String canal) {
         String cashinId = cashinService.getCashinId() ;
         String query = "SELECT * FROM cashin WHERE id = "+ cashinId;
-        var result = com.qaautomation.ConnectionDB.MySQLUtils.executeQuery(query, "`be-cashin-co`"); // ← podrías ajustar si tu dbName se usa literal
+        var result = com.qaautomation.ConnectionDB.MySQLUtils.executeQuery(query, "`be-cashin-co`"); 
 
         try {
             ResultSet rs = result.getResultSet();
