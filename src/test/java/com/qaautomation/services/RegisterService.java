@@ -6,28 +6,27 @@ import org.json.JSONObject;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 public class RegisterService {
 
     private Response registerResponse;
     private String token;
-    private String userId;
     private String generatedEmail;
+    private int userId;
 
-    public void registerUser(String password, String country) {
-        // Email aleatorio para evitar duplicados
-        String email = "test" + UUID.randomUUID().toString().substring(0, 4) + "@yopmail.com";
-        this.generatedEmail = email;
+    // Método principal con posibilidad de usar email fijo
+    public void registerUser(String password, String country, String optionalEmail) {
+        // Si se pasa un email, lo usamos; si no, generamos uno aleatorio
+        this.generatedEmail = (optionalEmail != null && !optionalEmail.isEmpty())
+                ? optionalEmail
+                : "test" + UUID.randomUUID().toString().substring(0, 4) + "@yopmail.com";
 
         JSONObject payload = new JSONObject();
-        payload.put("email", email);
+        payload.put("email", generatedEmail);
         payload.put("password", password);
         payload.put("country", country);
         payload.put("referral_code", "");
 
-        registerResponse = RestAssured
+        this.registerResponse = RestAssured
                 .given()
                 .relaxedHTTPSValidation()
                 .header("Content-Type", "application/json")
@@ -35,24 +34,28 @@ public class RegisterService {
                 .post("https://dev.trii.tech/auth/register")
                 .prettyPeek();
 
-        assertEquals(200, registerResponse.getStatusCode());
-
-        this.token = registerResponse.jsonPath().getString("token");
-        this.userId = registerResponse.jsonPath().getString("user_id");
-
-        assertNotNull("Token no generado", token);
-        assertNotNull("User ID no generado", userId);
+        // Solo si es exitoso (200), guardamos token e ID
+        if (registerResponse.getStatusCode() == 200) {
+            this.token = registerResponse.jsonPath().getString("token");
+            this.userId = registerResponse.jsonPath().getInt("user_id");
+        }
     }
 
+    // Método de compatibilidad que usa email aleatorio
+    public void registerUser(String password, String country) {
+        registerUser(password, country, null);
+    }
+
+    // Getters
     public Response getRegisterResponse() {
         return registerResponse;
     }
 
-    public String getToken() {
+    public String getRegisterToken() {
         return token;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
@@ -60,3 +63,4 @@ public class RegisterService {
         return generatedEmail;
     }
 }
+
