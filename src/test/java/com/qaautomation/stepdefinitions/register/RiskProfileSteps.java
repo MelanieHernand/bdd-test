@@ -1,8 +1,10 @@
 package com.qaautomation.stepdefinitions.register;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
-import com.qaautomation.services.register.RegisterService;
+import com.qaautomation.context.TestContext;
 import com.qaautomation.services.register.RiskProfileService;
+import com.qaautomation.stepdefinitions.Hooks;
+
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -14,15 +16,19 @@ import static org.junit.Assert.*;
 
 public class RiskProfileSteps {
 
-    private final RegisterService registerService = new RegisterService(); 
     private final RiskProfileService riskProfileService = new RiskProfileService();
+    private final TestContext context = Hooks.context;
+
     private Response response;
-    private int lastScoreSent;
 
     @When("configuro el perfil de riesgo con valor {string}")
     public void envioPerfilDeRiesgo(String scoreStr) {
-        lastScoreSent = Integer.parseInt(scoreStr);
-        response = riskProfileService.sendRiskProfile(registerService.getRegisterToken(), lastScoreSent);
+        int score = Integer.parseInt(scoreStr);
+
+        // Guardar en el contexto
+        context.setRiskProfileScore(score);
+
+        response = riskProfileService.sendRiskProfile(context.getToken(), score);
     }
 
     @Then("se debe reflejar en la respuesta el risk_profile_score igual a {string}")
@@ -33,15 +39,14 @@ public class RiskProfileSteps {
 
     @Then("el risk_profile_score debe coincidir en la base de datos {string}")
     public void validarScoreEnBaseDeDatos(String database) throws SQLException {
-        String query = "SELECT risk_profile_score FROM user WHERE id = " + registerService.getUserId();
+        String query = "SELECT risk_profile_score FROM user WHERE id = " + context.getUserId();
         MySQLUtils.QueryResult result = MySQLUtils.executeQuery(query, database);
-        assertNotNull("Error ejecutando la consulta", result);
+        assertNotNull("No se pudo ejecutar la consulta", result);
 
         ResultSet rs = result.getResultSet();
         assertTrue("No se encontró el usuario", rs.next());
-        assertEquals(lastScoreSent, rs.getInt("risk_profile_score"));
+        assertEquals(context.getRiskProfileScore(), rs.getInt("risk_profile_score"));
 
         MySQLUtils.closeResources(result);
     }
 }
-
