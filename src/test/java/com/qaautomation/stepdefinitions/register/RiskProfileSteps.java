@@ -2,6 +2,7 @@ package com.qaautomation.stepdefinitions.register;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
 import com.qaautomation.context.TestContext;
+import com.qaautomation.services.register.RiskProfileAcceptanceService;
 import com.qaautomation.services.register.RiskProfileService;
 import com.qaautomation.stepdefinitions.Hooks;
 
@@ -49,4 +50,31 @@ public class RiskProfileSteps {
 
         MySQLUtils.closeResources(result);
     }
+
+    @When("acepto los términos del perfil de riesgo")
+    public void aceptoTerminosPerfilRiesgo() {
+        RiskProfileAcceptanceService acceptanceService = new RiskProfileAcceptanceService();
+        response = acceptanceService.acceptRiskProfile(context.getToken());
+    }
+
+    @Then("el campo risk_profile_accept_timestamp debe estar presente en la base de datos {string}")
+    public void validarRiskProfileAceptadoEnDB(String database) {
+        int userId = context.getUserId();
+        String query = "SELECT risk_profile_accept_timestamp FROM user WHERE id = " + userId;
+
+        var result = MySQLUtils.executeQuery(query, "`" + database + "`");
+
+    try {
+        ResultSet rs = result.getResultSet();
+        assertTrue("No se encontró el usuario en la base de datos", rs.next());
+        assertNotNull("El campo risk_profile_accept_timestamp está NULL", rs.getTimestamp("risk_profile_accept_timestamp"));
+
+        System.out.println("✅ risk_profile_accept_timestamp confirmado para user_id: " + userId);
+    } catch (Exception e) {
+        fail("Error al validar risk_profile_accept_timestamp: " + e.getMessage());
+    } finally {
+        MySQLUtils.closeResources(result);
+    }
+    }
+
 }

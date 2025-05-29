@@ -11,16 +11,16 @@ public class TruoraService {
     private Response response;
 
     /**
-     * Envía una validación de documento (front-id o back-id)
+     * Envía validación de documento (front-id o back-id)
      *
-     * @param token        Token de autenticación (sk2)
-     * @param filePath     Ruta al archivo de imagen
-     * @param documentType Tipo de documento (ej: national-id)
-     * @param side         "front" o "back"
-     * @return Response de la API
+     * @param token
+     * @param filePath
+     * @param documentType Tipo de documento (ej. national-id, foreing-id, pep, passport)
+     * @param side
+     * @return 
      */
     public Response validateDocument(String token, String filePath, String documentType, String side) {
-        String endpoint = side.equalsIgnoreCase("back")
+        String endpoint = side.equalsIgnoreCase("back-id")
                 ? "https://be-compliance-331873046716.us-east1.run.app/truora/validation/back-id"
                 : "https://be-compliance-331873046716.us-east1.run.app/truora/validation/front-id";
 
@@ -28,21 +28,23 @@ public class TruoraService {
             .given()
                 .relaxedHTTPSValidation()
                 .header("sk2", token)
-                .header("accept", "application/json")
-                .header("Content-Type", "multipart/form-data")
-                .multiPart("document_type", documentType);
+                .header("accept", "application/json");
 
-        // Validación y carga del archivo
         if (filePath != null && !filePath.trim().isEmpty()) {
             File file = new File(filePath);
             if (file.exists()) {
-                request.multiPart("file", file);
+                request
+                    .multiPart("file", file)
+                    .multiPart("document_type", documentType);
             } else {
                 System.out.println("⚠️ La ruta del archivo no existe: " + filePath);
             }
         }
 
-        this.response = request.post(endpoint).prettyPeek();
+        this.response = request
+            .log().all() // Para depuración
+            .post(endpoint)
+            .prettyPeek(); // Muestra respuesta completa
         return response;
     }
 

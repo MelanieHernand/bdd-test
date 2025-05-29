@@ -13,7 +13,6 @@ public class RegisterService {
     private String generatedEmail;
     private int userId;
 
-    // Método principal con posibilidad de usar email fijo
     public void registerUser(String password, String country, String optionalEmail) {
         // Si se pasa un email, lo usamos; si no, generamos uno aleatorio
         this.generatedEmail = (optionalEmail != null && !optionalEmail.isEmpty())

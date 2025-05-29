@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.Random;
 
 public class UserDataService {
 
@@ -30,7 +31,10 @@ public class UserDataService {
 
     public JSONObject generateValidUserData(String n_id) {
         if (n_id == null || n_id.isEmpty()) {
-            n_id = "79" + UUID.randomUUID().toString().substring(0, 6);
+            // Generar un número aleatorio de 6 dígitos
+            Random random = new Random();
+            int numeroAleatorio = 100000 + random.nextInt(900000);
+            n_id = "79" + numeroAleatorio;
         }
 
         JSONObject json = new JSONObject();
@@ -56,4 +60,3 @@ public class UserDataService {
         return json;
     }
 }
-
