@@ -42,10 +42,13 @@ public class UserDataSteps {
         assertEquals(expectedResponse, response.jsonPath().getString("response"));
     }
 
-    @Then("los datos del usuario deben coincidir en la base de datos {string}")
+    @Then("Los datos del usuario deben coincidir en la base de datos {string}")
     public void validarDatosEnBase(String database) throws SQLException {
-        String query = "SELECT first_name, last_name, n_id, user_status FROM " + database + ".user WHERE id = " + registerService.getUserId();
-        ResultSet rs = MySQLUtils.executeQuery(query);
+        String query = "SELECT first_name, last_name, n_id, user_status FROM user WHERE id = " + registerService.getUserId();
+        MySQLUtils.QueryResult result = MySQLUtils.executeQuery(query, database);
+
+        assertNotNull("La consulta falló o no se pudo conectar", result);
+        ResultSet rs = result.getResultSet();
 
         assertTrue("No se encontró el usuario en la base", rs.next());
         assertEquals(userSent.getString("first_name"), rs.getString("first_name"));
@@ -53,7 +56,8 @@ public class UserDataSteps {
         assertEquals(userSent.getString("n_id"), rs.getString("n_id"));
         assertEquals("basic_data", rs.getString("user_status"));
 
-        rs.close();
+        MySQLUtils.closeResources(result);
     }
+
 }
 
