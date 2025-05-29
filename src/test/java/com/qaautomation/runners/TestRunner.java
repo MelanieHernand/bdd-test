@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
             "html:target/cucumber-report.html",
             "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },
-        tags = "@test",
+        tags = "@test1",
         monochrome = true
 )
 public class TestRunner {
