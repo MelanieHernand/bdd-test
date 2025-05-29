@@ -16,7 +16,6 @@ public class CardSteps {
 
     private final LoginService loginService = new LoginService();
     private final CardService cardService = new CardService();
-    private final Response response = null;
 
     private String lastCardIdBefore;
     

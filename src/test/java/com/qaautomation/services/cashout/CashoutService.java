@@ -4,10 +4,6 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class CashoutService {
 

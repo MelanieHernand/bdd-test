@@ -3,10 +3,6 @@ package com.qaautomation.stepdefinitions.cashin;
 import com.qaautomation.context.TestContext;
 import com.qaautomation.services.cashIn.CashinService;
 import com.qaautomation.services.login.LoginService;
-import com.qaautomation.ConnectionDB.MySQLUtils;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;

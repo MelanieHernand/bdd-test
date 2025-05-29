@@ -1,7 +1,6 @@
 package com.qaautomation.stepdefinitions.payments;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
-import com.qaautomation.context.TestContext;
 import com.qaautomation.services.login.LoginService;
 import com.qaautomation.services.payments.CardService;
 
@@ -109,6 +108,10 @@ public class CardDeleteSteps {
     }
 
     try {
+        if (result == null) {
+            fail("El resultado de la consulta es nulo.");
+            return;
+        }
         ResultSet rs = result.getResultSet();
         assertTrue("No se encontró la tarjeta en la base de datos", rs.next());
 

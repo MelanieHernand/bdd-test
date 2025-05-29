@@ -1,6 +1,5 @@
 package com.qaautomation.stepdefinitions.payments;
 
-import com.qaautomation.ConnectionDB.MySQLUtils;
 import com.qaautomation.context.TestContext;
 import com.qaautomation.services.login.LoginService;
 
@@ -11,7 +10,6 @@ import static org.junit.Assert.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.restassured.response.Response;
 
 public class PaymentSteps {
 
@@ -88,6 +86,7 @@ public class PaymentSteps {
 
     if (result == null || result.getResultSet() == null) {
         fail("No se pudo ejecutar la consulta o no se devolvió ningún resultado. Verificá conexión y base.");
+        return;
     }
 
     try {
