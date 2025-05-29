@@ -3,8 +3,6 @@ package com.qaautomation.services.register;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
-
-import java.util.UUID;
 import java.util.Random;
 
 public class UserDataService {

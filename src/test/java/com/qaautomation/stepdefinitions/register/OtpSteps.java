@@ -31,7 +31,8 @@ public class OtpSteps {
         var result = MySQLUtils.executeQuery(query, "`" + database + "`");
 
         if (result == null) {
-        fail("No se pudo ejecutar la consulta en la base de datos: " + database);
+            fail("No se pudo ejecutar la consulta en la base de datos: " + database);
+            return;
         }
 
         try {
