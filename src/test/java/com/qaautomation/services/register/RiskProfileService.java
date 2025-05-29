@@ -10,7 +10,7 @@ public class RiskProfileService {
 
     public Response sendRiskProfile(String token, int score) {
         JSONObject payload = new JSONObject();
-        payload.put("risk_profile_score", score);
+        payload.put("risk_profile", score);
 
         this.response = RestAssured
             .given()

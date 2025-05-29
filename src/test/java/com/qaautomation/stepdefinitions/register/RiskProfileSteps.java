@@ -40,7 +40,7 @@ public class RiskProfileSteps {
     @Then("el risk_profile_score debe coincidir en la base de datos {string}")
     public void validarScoreEnBaseDeDatos(String database) throws SQLException {
         String query = "SELECT risk_profile_score FROM user WHERE id = " + context.getUserId();
-        MySQLUtils.QueryResult result = MySQLUtils.executeQuery(query, database);
+        MySQLUtils.QueryResult result = MySQLUtils.executeQuery(query, "`" + database + "`");
         assertNotNull("No se pudo ejecutar la consulta", result);
 
         ResultSet rs = result.getResultSet();
