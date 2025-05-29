@@ -2,7 +2,7 @@ package com.qaautomation.stepdefinitions.payments;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
 import com.qaautomation.context.TestContext;
-import com.qaautomation.services.LoginService;
+import com.qaautomation.services.login.LoginService;
 
 import io.cucumber.java.en.*;
 

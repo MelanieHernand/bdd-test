@@ -2,8 +2,9 @@ package com.qaautomation.stepdefinitions.payments;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
 import com.qaautomation.context.TestContext;
-import com.qaautomation.services.CardService;
-import com.qaautomation.services.LoginService;
+import com.qaautomation.services.login.LoginService;
+import com.qaautomation.services.payments.CardService;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

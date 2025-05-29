@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.qaautomation.context.TestContext;
-import com.qaautomation.services.CashinService;
-import com.qaautomation.services.LoginService;
+import com.qaautomation.services.cashIn.CashinService;
+import com.qaautomation.services.login.LoginService;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

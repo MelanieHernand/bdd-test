@@ -1,8 +1,8 @@
 package com.qaautomation.stepdefinitions.cashout;
 
 import com.qaautomation.context.TestContext;
-import com.qaautomation.services.CashoutService;
-import com.qaautomation.services.LoginService;
+import com.qaautomation.services.cashout.CashoutService;
+import com.qaautomation.services.login.LoginService;
 
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;

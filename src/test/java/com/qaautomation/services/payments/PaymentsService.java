@@ -1,4 +1,4 @@
-package com.qaautomation.services;
+package com.qaautomation.services.payments;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;

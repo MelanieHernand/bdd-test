@@ -1,8 +1,8 @@
 package com.qaautomation.context;
 
-import com.qaautomation.services.CardService;
-import com.qaautomation.services.LoginService;
-import com.qaautomation.services.PaymentsService;
+import com.qaautomation.services.login.LoginService;
+import com.qaautomation.services.payments.CardService;
+import com.qaautomation.services.payments.PaymentsService;
 
 public class TestContext {
     

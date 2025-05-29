@@ -1,8 +1,10 @@
 package com.qaautomation.stepdefinitions.payments;
 
 import static org.junit.Assert.assertEquals;
-import com.qaautomation.services.CardService;
-import com.qaautomation.services.LoginService;
+
+import com.qaautomation.services.login.LoginService;
+import com.qaautomation.services.payments.CardService;
+
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;
 import java.util.Map;

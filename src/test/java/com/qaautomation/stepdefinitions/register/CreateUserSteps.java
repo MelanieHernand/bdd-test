@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.qaautomation.ConnectionDB.*;
+import com.qaautomation.services.register.RegisterService;
 
-import com.qaautomation.services.RegisterService;
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;
 

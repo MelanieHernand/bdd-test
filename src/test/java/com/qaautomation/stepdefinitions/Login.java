@@ -3,7 +3,8 @@ package com.qaautomation.stepdefinitions;
 
 import com.qaautomation.ConnectionDB.MySQLUtils;
 import com.qaautomation.context.TestContext;
-import com.qaautomation.services.LoginService;
+import com.qaautomation.services.login.LoginService;
+
 import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;

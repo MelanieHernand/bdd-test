@@ -1,8 +1,8 @@
 package com.qaautomation.stepdefinitions.cashin;
 
 import com.qaautomation.context.TestContext;
-import com.qaautomation.services.CashinService;
-import com.qaautomation.services.LoginService;
+import com.qaautomation.services.cashIn.CashinService;
+import com.qaautomation.services.login.LoginService;
 import com.qaautomation.ConnectionDB.MySQLUtils;
 
 import java.sql.ResultSet;
